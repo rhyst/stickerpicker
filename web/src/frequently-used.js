@@ -13,6 +13,9 @@
 //
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
+if (!window.localStorage) {
+    window.localStorage = {}
+}
 const FREQUENTLY_USED = JSON.parse(window.localStorage.mauFrequentlyUsedStickerIDs || "{}")
 let FREQUENTLY_USED_SORTED = null
 
