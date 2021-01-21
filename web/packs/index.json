@@ -1,0 +1,6 @@
+{
+  "packs": [
+    "waddles_pig.json"
+  ],
+  "homeserver_url": "https://matrix.mychats.org"
+}
