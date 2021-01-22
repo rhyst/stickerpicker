@@ -13,29 +13,33 @@
 //
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
-let FREQUENTLY_USED = {}
+let FREQUENTLY_USED = {};
 try {
-    FREQUENTLY_USED = JSON.parse(window.localStorage.mauFrequentlyUsedStickerIDs || "{}")
+  FREQUENTLY_USED = JSON.parse(
+    window.localStorage.mauFrequentlyUsedStickerIDs || "{}"
+  );
 } catch (e) {}
 
-const FREQUENTLY_USED = {}
-let FREQUENTLY_USED_SORTED = null
+let FREQUENTLY_USED_SORTED = null;
 
-export const add = id => {
-	const [count] = FREQUENTLY_USED[id] || [0]
-	FREQUENTLY_USED[id] = [count + 1, Date.now()]
-	try {
-	    window.localStorage.mauFrequentlyUsedStickerIDs = JSON.stringify(FREQUENTLY_USED)
-        } catch {}
-	FREQUENTLY_USED_SORTED = null
-}
+export const add = (id) => {
+  const [count] = FREQUENTLY_USED[id] || [0];
+  FREQUENTLY_USED[id] = [count + 1, Date.now()];
+  try {
+    window.localStorage.mauFrequentlyUsedStickerIDs = JSON.stringify(
+      FREQUENTLY_USED
+    );
+  } catch {}
+  FREQUENTLY_USED_SORTED = null;
+};
 
 export const get = (limit = 16) => {
-	if (FREQUENTLY_USED_SORTED === null) {
-		FREQUENTLY_USED_SORTED = Object.entries(FREQUENTLY_USED)
-			.sort(([, [count1, date1]], [, [count2, date2]]) =>
-				count2 === count1 ? date2 - date1 : count2 - count1)
-			.map(([emoji]) => emoji)
-	}
-	return FREQUENTLY_USED_SORTED.slice(0, limit)
-}
+  if (FREQUENTLY_USED_SORTED === null) {
+    FREQUENTLY_USED_SORTED = Object.entries(FREQUENTLY_USED)
+      .sort(([, [count1, date1]], [, [count2, date2]]) =>
+        count2 === count1 ? date2 - date1 : count2 - count1
+      )
+      .map(([emoji]) => emoji);
+  }
+  return FREQUENTLY_USED_SORTED.slice(0, limit);
+};
