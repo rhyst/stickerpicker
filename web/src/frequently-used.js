@@ -13,16 +13,20 @@
 //
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
-if (!window.localStorage) {
-    window.localStorage = {}
-}
-const FREQUENTLY_USED = JSON.parse(window.localStorage.mauFrequentlyUsedStickerIDs || "{}")
+let FREQUENTLY_USED = {}
+try {
+    FREQUENTLY_USED = JSON.parse(window.localStorage.mauFrequentlyUsedStickerIDs || "{}")
+} catch (e) {}
+
+const FREQUENTLY_USED = {}
 let FREQUENTLY_USED_SORTED = null
 
 export const add = id => {
 	const [count] = FREQUENTLY_USED[id] || [0]
 	FREQUENTLY_USED[id] = [count + 1, Date.now()]
-	window.localStorage.mauFrequentlyUsedStickerIDs = JSON.stringify(FREQUENTLY_USED)
+	try {
+	    window.localStorage.mauFrequentlyUsedStickerIDs = JSON.stringify(FREQUENTLY_USED)
+        } catch {}
 	FREQUENTLY_USED_SORTED = null
 }
 
